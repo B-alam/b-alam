@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>La Leyenda | Proyecto de Investigación</title>
+
+<!-- =========================================================
+     TIPOGRAFÍAS
+========================================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+
+<style>
+
+    /* =========================================================
+       SISTEMA DE DISEÑO
+    ========================================================== */
+
+    :root {
+
+        /* Paleta principal */
+        --black: #151313;
+        --black-soft: #211C1B;
+
+        --brown: #54382D;
+        --brown-light: #795B4D;
+
+        --wine: #681F2C;
+        --wine-dark: #48151F;
+
+        --beige: #E5D5BE;
+        --beige-light: #F5EEE4;
+
+        --cream: #FAF7F1;
+
+        /* Texto */
+        --text-dark: #2D2623;
+        --text-medium: #625650;
+        --text-light: #F3EDE4;
+        --text-muted-light: #CDBFB3;
+
+        --white: #FFFFFF;
+
+        /* Bordes */
+        --border-light: rgba(84, 56, 45, .18);
+        --border-dark: rgba(255,255,255,.12);
+
+        /* Sombras */
+        --shadow:
+            0 10px 30px rgba(21, 19, 19, .09);
+
+        --shadow-hover:
+            0 18px 40px rgba(21, 19, 19, .16);
+
+        /* Tipografías */
+        --serif: "Playfair Display", Georgia, serif;
+        --sans: "Inter", Arial, sans-serif;
+
+        --max-width: 1180px;
+
+        /* Animaciones */
+        --transition: .3s ease;
+    }
+
+
+    /* =========================================================
+       RESET
+    ========================================================== */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 120px;
+    }
+
+
+    body {
+        background: var(--cream);
+        color: var(--text-dark);
+
+        font-family: var(--sans);
+        line-height: 1.7;
+
+        overflow-x: hidden;
+    }
+
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+
+    button {
+        font-family: inherit;
+    }
+
+
+    .container {
+        width: min(90%, var(--max-width));
+        margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       TIPOGRAFÍA
+    ========================================================== */
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--serif);
+        color: var(--brown);
+
+        line-height: 1.12;
+        letter-spacing: -.025em;
+    }
+
+
+    h1,
+    h2 {
+        font-weight: 600;
+    }
+
+
+    p {
+        line-height: 1.8;
+    }
+
+
+    /*
+        Las palabras importantes solamente utilizan la serif
+        cuando realmente necesitan destacarse.
+    */
+
+    strong {
+        font-family: var(--serif);
+        font-weight: 700;
+        color: var(--wine);
+    }
+
+
+    .eyebrow {
+        display: inline-block;
+
+        margin-bottom: 15px;
+
+        color: var(--wine);
+
+        font-size: .72rem;
+        font-weight: 700;
+
+        letter-spacing: .18em;
+        text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       ANIMACIONES GENERALES
+    ========================================================== */
+
+    @keyframes fadeUp {
+
+        from {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+
+    @keyframes fadeIn {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+
+    }
+
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-8px);
+        }
+
+    }
+
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+
+        transition:
+            opacity .7s ease,
+            transform .7s ease;
+    }
+
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    /* =========================================================
+       HEADER FLOTANTE
+    ========================================================== */
+
+    header {
+        position: fixed;
+
+        top: 20px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: min(94%, 1250px);
+
+        z-index: 1000;
+
+        background: rgba(250, 247, 241, .94);
+
+        border: 1px solid rgba(84, 56, 45, .15);
+
+        border-radius: 100px;
+
+        box-shadow:
+            0 12px 35px rgba(21,19,19,.10);
+
+        backdrop-filter: blur(14px);
+
+        animation: fadeIn .7s ease;
+    }
+
+
+    .nav {
+
+        min-height: 82px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 30px;
+
+        padding: 10px 18px 10px 30px;
+    }
+
+
+    /* LOGO */
+
+    .logo {
+
+        font-family: var(--serif);
+
+        font-size: 1.65rem;
+        font-weight: 700;
+
+        letter-spacing: .06em;
+
+        color: var(--black);
+
+        white-space: nowrap;
+
+        transition: color var(--transition);
+    }
+
+
+    .logo:hover {
+        color: var(--wine);
+    }
+
+
+    /* NAVEGACIÓN */
+
+    .nav-links {
+
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
+
+        list-style: none;
+    }
+
+
+    .nav-links a {
+
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 11px 17px;
+
+        border-radius: 50px;
+
+        color: var(--brown);
+
+        font-size: .78rem;
+        font-weight: 600;
+
+        transition:
+            color var(--transition),
+            background var(--transition),
+            transform var(--transition);
+    }
+
+
+    .nav-links a:hover {
+
+        background: var(--beige);
+
+        color: var(--wine);
+
+        transform: translateY(-1px);
+    }
+
+
+    /*
+        Indicador de sección activa
+    */
+
+    .nav-links a.active {
+
+        background: var(--wine);
+
+        color: var(--white);
+
+        box-shadow:
+            0 4px 12px rgba(104,31,44,.20);
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================== */
+
+    .hero {
+
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+
+        padding:
+            150px 0
+            90px;
+    }
+
+
+    .hero-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        align-items: center;
+
+        gap: 80px;
+    }
+
+
+    .hero-content {
+
+        max-width: 620px;
+
+        animation:
+            fadeUp .8s ease both;
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            clamp(3.5rem, 7vw, 6.3rem);
+
+        margin-bottom: 28px;
+
+        color: var(--black);
+    }
+
+
+    .hero h1 span {
+        color: var(--wine);
+    }
+
+
+    .hero-description {
+
+        max-width: 570px;
+
+        margin-bottom: 22px;
+
+        font-size: 1rem;
+    }
+
+
+    .question {
+
+        padding-left: 18px;
+
+        border-left:
+            3px solid var(--wine);
+
+        font-style: italic;
+
+        color: var(--text-medium);
+    }
+
+
+    /* =========================================================
+       BOTONES
+    ========================================================== */
+
+    .buttons {
+
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        margin-top: 35px;
+    }
+
+
+    .btn {
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        min-height: 48px;
+
+        padding:
+            0 24px;
+
+        border:
+            1px solid var(--brown);
+
+        border-radius: 100px;
+
+        font-size: .76rem;
+        font-weight: 700;
+
+        letter-spacing: .05em;
+
+        transition:
+            background var(--transition),
+            color var(--transition),
+            transform var(--transition),
+            box-shadow var(--transition);
+    }
+
+
+    .btn-primary {
+
+        background: var(--brown);
+
+        color: var(--white);
+    }
+
+
+    .btn-primary:hover {
+
+        background: var(--wine);
+
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 8px 18px rgba(104,31,44,.20);
+    }
+
+
+    .btn-secondary {
+
+        color: var(--brown);
+
+        background: transparent;
+    }
+
+
+    .btn-secondary:hover {
+
+        background: var(--beige);
+
+        color: var(--wine);
+
+        transform: translateY(-3px);
+    }
+
+
+    /* =========================================================
+       HERO VISUAL
+    ========================================================== */
+
+    .hero-visual {
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        animation:
+            fadeUp 1s .15s ease both;
+    }
+
+
+    .hero-circle {
+
+        width:
+            min(460px, 80vw);
+
+        aspect-ratio: 1;
+
+        border-radius: 50%;
+
+        background:
+            var(--beige);
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+
+        border:
+            1px solid rgba(84,56,45,.15);
+
+        animation:
+            float 6s ease-in-out infinite;
+    }
+
+
+    .hero-circle img {
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+
+    .hero-placeholder {
+
+        width: 72%;
+        aspect-ratio: 1;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        background: var(--cream);
+
+        border:
+            1px solid var(--brown);
+
+        color: var(--brown);
+
+        font-family: var(--serif);
+
+        font-size: 1.5rem;
+    }
+
+
+    /* =========================================================
+       SECCIONES
+    ========================================================== */
+
+    section {
+        padding: 115px 0;
+    }
+
+
+    .section-header {
+
+        max-width: 720px;
+
+        margin-bottom: 55px;
+    }
+
+
+    .section-header h2 {
+
+        font-size:
+            clamp(2.6rem, 5vw, 4.2rem);
+
+        margin-bottom: 20px;
+    }
+
+
+    /* =========================================================
+       LEYENDA / CARRUSEL
+    ========================================================== */
+
+    .legend-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    height: 420px;
+    width: 100%;
+
+    padding: 28px 32px;
+    text-align: left;
+
+    overflow: hidden;
+}
+
+.legend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--amber);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}
+
+.legend-text {
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding-right: 18px;
+
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.legend-text p {
+    margin-bottom: 18px;
+}
+
+.legend-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Scroll interno */
+.legend-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.legend-text::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+.legend-text::-webkit-scrollbar-thumb {
+    background: var(--wine);
+    border-radius: 10px;
+}
+
+.legend-text::-webkit-scrollbar-thumb:hover {
+    background: var(--terracotta);
+}
+
+
+    /* =========================================================
+       PERSONAJE
+    ========================================================== */
+
+    .character-section {
+
+        background:
+            var(--cream);
+    }
+
+
+    .character-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            .9fr 1.1fr;
+
+        align-items: center;
+
+        gap: 80px;
+    }
+
+
+    .character-image {
+
+        min-height: 500px;
+
+        background:
+            var(--beige);
+
+        border-radius: 20px;
+
+        overflow: hidden;
+
+        box-shadow:
+            var(--shadow);
+    }
+
+
+    .character-image img {
+
+        width: 100%;
+        height: 100%;
+
+        min-height: 500px;
+
+        object-fit: cover;
+    }
+
+
+    .character-content h2 {
+
+        font-size:
+            clamp(2.6rem, 5vw, 4rem);
+
+        margin-bottom: 25px;
+    }
+
+
+    .character-content p + p {
+
+        margin-top: 18px;
+    }
+
+
+    .character-tags {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 9px;
+
+        margin-top: 30px;
+    }
+
+
+    .character-tags span {
+
+        padding:
+            8px 16px;
+
+        border-radius: 100px;
+
+        background:
+            var(--beige);
+
+        color:
+            var(--brown);
+
+        font-size: .75rem;
+
+        font-weight: 700;
+    }
+
+
+    /* =========================================================
+       ANIMATRÓNICO
+    ========================================================== */
+
+    .features-section {
+
+        background:
+            var(--black);
+
+        color:
+            var(--text-light);
+    }
+
+
+    .features-section h2 {
+
+        color:
+            var(--beige-light);
+    }
+
+
+    .features-section .section-header p {
+
+        color:
+            var(--text-muted-light);
+    }
+
+
+    .features-section .eyebrow {
+
+        color:
+            var(--beige);
+    }
+
+
+    .features-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 18px;
+    }
+
+
+    .feature-card {
+
+        padding: 32px;
+
+        min-height: 260px;
+
+        background:
+            var(--black-soft);
+
+        border:
+            1px solid var(--border-dark);
+
+        border-radius: 18px;
+
+        transition:
+            transform var(--transition),
+            background var(--transition),
+            border-color var(--transition);
+    }
+
+
+    .feature-card:hover {
+
+        transform:
+            translateY(-6px);
+
+        background:
+            var(--wine-dark);
+
+        border-color:
+            rgba(229,213,190,.25);
+    }
+
+
+    .feature-number {
+
+        display: block;
+
+        margin-bottom: 25px;
+
+        color:
+            var(--beige);
+
+        font-size: .75rem;
+
+        font-weight: 700;
+
+        letter-spacing: .15em;
+    }
+
+
+    .feature-card h3 {
+
+        color:
+            var(--beige-light);
+
+        font-size: 1.55rem;
+
+        margin-bottom: 15px;
+    }
+
+
+    .feature-card p {
+
+        color:
+            var(--text-muted-light);
+
+        font-size: .9rem;
+    }
+
+
+    /* =========================================================
+       DIAGRAMA
+    ========================================================== */
+
+    .diagram-section {
+
+        background:
+            var(--cream);
+    }
+
+
+    .diagram-container {
+
+        width: 100%;
+
+        padding: 40px;
+
+        background:
+            var(--beige-light);
+
+        border:
+            1px solid var(--border-light);
+
+        border-radius: 20px;
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        box-shadow:
+            var(--shadow);
+    }
+
+
+    .responsive-diagram {
+
+        width: 100%;
+
+        max-width: 1050px;
+
+        height: auto;
+
+        object-fit: contain;
+    }
+
+
+    /* =========================================================
+       PROCESO
+    ========================================================== */
+
+    .process-section {
+
+        background:
+            var(--beige-light);
+    }
+
+
+    .process-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 22px;
+    }
+
+
+    .process-card {
+
+        background:
+            var(--cream);
+
+        border:
+            1px solid var(--border-light);
+
+        border-radius: 18px;
+
+        overflow: hidden;
+
+        transition:
+            transform var(--transition),
+            box-shadow var(--transition);
+    }
+
+
+    .process-card:hover {
+
+        transform:
+            translateY(-7px);
+
+        box-shadow:
+            var(--shadow-hover);
+    }
+
+
+    .process-card img {
+
+        width: 100%;
+
+        height: 260px;
+
+        object-fit: cover;
+
+        transition:
+            transform .5s ease;
+    }
+
+
+    .process-card:hover img {
+
+        transform:
+            scale(1.03);
+    }
+
+
+    .process-info {
+
+        padding: 24px;
+    }
+
+
+    .process-info > span {
+
+        color:
+            var(--wine);
+
+        font-size: .72rem;
+
+        font-weight: 700;
+
+        letter-spacing: .15em;
+    }
+
+
+    .process-info h3 {
+
+        margin: 8px 0;
+
+        font-size: 1.5rem;
+    }
+
+
+    .process-info p {
+
+        font-size: .9rem;
+
+        color:
+            var(--text-medium);
+    }
+
+
+    /* =========================================================
+       ESCENARIO
+    ========================================================== */
+
+    .scenario-section {
+
+        background:
+            var(--wine);
+
+        color:
+            var(--text-light);
+    }
+
+
+    .scenario-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        align-items: center;
+
+        gap: 70px;
+    }
+
+
+    .scenario-grid h2 {
+
+        color:
+            var(--beige-light);
+
+        font-size:
+            clamp(2.6rem, 5vw, 4rem);
+
+        margin: 20px 0;
+    }
+
+
+    .scenario-grid .eyebrow {
+
+        color:
+            var(--beige);
+    }
+
+
+    .scenario-grid p {
+
+        color:
+            var(--text-light);
+    }
+
+
+    .scenario-image {
+
+        height: 480px;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+    }
+
+
+    .scenario-image img {
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+
+    /* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+    position: relative;
+
+    padding: 75px 7vw 55px;
+
+    background:
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(122, 38, 56, 0.16),
+            transparent 30%
+        ),
+        var(--bg-dark);
+
+    border-top: 1px solid rgba(198, 138, 69, 0.20);
+
+    overflow: hidden;
+}
+
+
+/* Línea decorativa superior */
+
+.site-footer::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 7vw;
+
+    width: 90px;
+    height: 3px;
+
+    background: var(--terracotta);
+
+    border-radius: 999px;
+}
+
+
+/* Contenedor */
+
+.footer-content {
+    width: min(100%, var(--max-width));
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        0.75fr;
+
+    gap: 80px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   INSTITUCIÓN
+========================================================= */
+
+.institution-info {
+    max-width: 700px;
+}
+
+.footer-institution {
+    margin-bottom: 18px;
+
+    font-family:
+        Cambria,
+        Cochin,
+        Georgia,
+        Times,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(1.5rem, 3vw, 2.3rem);
+
+    line-height: 1.15;
+}
+
+.footer-institution a {
+    color: var(--text);
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease;
+}
+
+.footer-institution a:hover {
+    color: var(--amber);
+}
+
+
+.footer-subtitle {
+    margin-bottom: 10px;
+
+    color: var(--text-muted);
+
+    font-size: 0.85rem;
+
+    letter-spacing: 0.06em;
+}
+
+
+.footer-project {
+    color: var(--text-muted);
+
+    font-size: 0.9rem;
+}
+
+.footer-project span {
+    color: var(--terracotta);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   EQUIPO
+========================================================= */
+
+.team-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 30px;
+}
+
+.footer-group h4 {
+    margin-bottom: 12px;
+
+    color: var(--amber);
+
+    font-family: var(--serif);
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+}
+
+.footer-group ul {
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.footer-group li {
+    color: var(--text-muted);
+
+    font-size: 0.86rem;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-group li:hover {
+    color: var(--text);
+
+    transform: translateX(4px);
+}
+
+.development {
+    padding-top: 20px;
+
+    border-top: 1px solid var(--border);
+}
+
+.development p {
+    color: var(--text);
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   FOOTER RESPONSIVE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .footer-content {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .team-info {
+        max-width: 600px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .site-footer {
+        padding:
+            60px 5vw
+            40px;
+    }
+
+    .footer-institution {
+        font-size: 1.45rem;
+    }
+
+    .footer-subtitle,
+    .footer-project,
+    .footer-group li,
+    .development p {
+        font-size: 0.82rem;
+    }
+}
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 1000px) {
+
+        header {
+
+            top: 12px;
+        }
+
+
+        .nav {
+
+            min-height: auto;
+
+            padding:
+                12px 18px;
+        }
+
+
+        .logo {
+
+            font-size: 1.4rem;
+        }
+
+
+        .nav-links {
+
+            gap: 2px;
+        }
+
+
+        .nav-links a {
+
+            padding:
+                9px 11px;
+
+            font-size: .7rem;
+        }
+
+
+        .hero-grid,
+        .character-grid,
+        .scenario-grid {
+
+            grid-template-columns:
+                1fr;
+
+            gap: 55px;
+        }
+
+
+        .hero-visual {
+
+            order: -1;
+        }
+
+
+        .features-grid {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+    }
+
+
+    @media (max-width: 750px) {
+
+        header {
+
+            position: fixed;
+
+            border-radius: 25px;
+
+            width: 94%;
+        }
+
+
+        .nav {
+
+            flex-direction:
+                column;
+
+            gap: 10px;
+
+            padding:
+                14px;
+        }
+
+
+        .logo {
+
+            font-size: 1.45rem;
+        }
+
+
+        .nav-links {
+
+            width: 100%;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+        }
+
+
+        .nav-links a {
+
+            padding:
+                7px 10px;
+
+            font-size: .65rem;
+        }
+
+
+        .hero {
+
+            padding-top:
+                190px;
+        }
+
+
+        .features-grid,
+        .process-grid {
+
+            grid-template-columns:
+                1fr;
+        }
+
+
+        .footer-grid {
+
+            grid-template-columns:
+                1fr;
+        }
+
+
+        .diagram-container {
+
+            padding: 18px;
+        }
+
+    }
+
+
+    @media (max-width: 550px) {
+
+        section {
+
+            padding:
+                80px 0;
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                3.3rem;
+        }
+
+
+        .hero-circle {
+
+            width:
+                min(340px, 82vw);
+        }
+
+
+        .buttons {
+
+            flex-direction:
+                column;
+
+            align-items:
+                stretch;
+        }
+
+
+        .btn {
+
+            width: 100%;
+        }
+
+
+        .character-image img {
+
+            min-height:
+                350px;
+        }
+
+
+        .character-image {
+
+            min-height:
+                350px;
+        }
+
+
+        .carousel-slide {
+
+            height:
+                330px;
+        }
+
+
+        .scenario-image {
+
+            height:
+                350px;
+        }
+
+
+        .feature-card {
+
+            min-height:
+                auto;
+        }
+
+    }
+
+
+    /* =========================================================
+       REDUCIR ANIMACIONES SI EL USUARIO LO SOLICITA
+    ========================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+
+            scroll-behavior:
+                auto !important;
+
+            animation-duration:
+                .01ms !important;
+
+            animation-iteration-count:
+                1 !important;
+
+            transition-duration:
+                .01ms !important;
+        }
+
+    }
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================== -->
+
+<header id="site-header">
+
+    <nav class="nav container">
+
+        <a href="#inicio" class="logo">
+            B'ALAM
+        </a>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#leyenda" data-section="leyenda">
+                    La Leyenda
+                </a>
+            </li>
+
+            <li>
+                <a href="#personaje" data-section="personaje">
+                    El Personaje
+                </a>
+            </li>
+
+            <li>
+                <a href="#animatronico" data-section="animatronico">
+                    Animatrónico
+                </a>
+            </li>
+
+            <li>
+            <a href="#escenario">Escenario</a>
+            </li>
+
+            <!-- <li>
+                <a href="#diagrama" data-section="diagrama">
+                    Diagrama
+                </a>
+            </li>-->
+
+            <!-- <li>
+                <a href="#proceso" data-section="proceso">
+                    Construcción
+                </a>
+            </li>-->
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero" id="inicio">
+
+        <div class="container hero-grid">
+
+            <div class="hero-content">
+
+                <span class="eyebrow">
+                    Una historia que permanece
+                </span>
+
+
+                <h1>
+                    El origen de
+                    <span>la leyenda.</span>
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Una investigación que explora el origen de una
+                    leyenda, su transformación a través del tiempo y
+                    el personaje que surge de ella.
+
+                </p>
+
+
+                <p class="question">
+
+                    ¿Cómo nace una figura que logra permanecer en la
+                    memoria de una comunidad?
+
+                </p>
+
+
+                <div class="buttons">
+
+                    <a
+                        href="#leyenda"
+                        class="btn btn-primary">
+
+                        EXPLORAR LA LEYENDA
+
+                    </a>
+
+
+                    <a
+                        href="#animatronico"
+                        class="btn btn-secondary">
+
+                        VER EL PROYECTO
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                <div class="hero-circle">
+
+                   <img src="assets/imgpr2.png" alt="B'alam">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LEYENDA
+    ====================================================== -->
+
+    <section id="leyenda">
+
+        <div class="container">
+
+            <div class="section-header reveal">
+
+                <span class="eyebrow">
+                    La historia
+                </span>
+
+
+                <h2>
+                    Donde comienza todo.
+                </h2>
+
+
+                <p>
+
+                    Toda leyenda nace de una historia. En este espacio
+                    se presenta su origen, los acontecimientos que la
+                    construyen y la manera en que fue transmitida.
+
+                </p>
+
+            </div>
+
+
+            <div class="carousel reveal">
+
+                <div class="carousel-track" id="carouselTrack">
+            
+                    <div class="carousel-slide">
+            
+                        <div class="slide-placeholder legend-content">
+            
+                            <div class="legend-header">
+                                <span>LA LEYENDA</span>
+                                <span>01</span>
+                            </div>
+            
+                            <div class="legend-text">
+            
+                                <p>
+                                    Hace muchos años, cuando los caminos todavía eran de tierra y la selva comenzaba prácticamente detrás de las últimas casas del pueblo, vivió un guerrero llamado ¡B’alam!, era conocido por ser un hombre reservado, de pocas palabras y acostumbrado a recorrer durante las noches los límites del territorio, su trabajo consistía en vigilar los caminos y asegurarse de que nadie entrara a las tierras de la comunidad sin ser visto, conocía cada sendero, cada árbol y cada piedra del monte, incluso aquellos lugares a los que los demás preferían no acercarse.
+
+                                    Unos lo recordaban como un hombre joven, de facciones marcadas. Otros aseguraban que tenía el rostro de alguien mucho mayor y una cicatriz junto al ojo, incluso hubo quienes afirmaron que B’alam tenía una mirada completamente distinta a la que conocían. Nadie le dio demasiada importancia, en aquellos años, las distancias, la oscuridad y las largas jornadas de trabajo eran suficientes para explicar las confusiones.
+                                    
+                                    B’alam llevaba siempre consigo un medallón redondo de color oscuro, que en el centro tenía grabada la figura de un jaguar y, alrededor, unas marcas que con los años se habían vuelto difíciles de distinguir. Según la tradición de su familia, aquella pieza había pasado de una generación a otra y representaba la maldición que su familia había obtenido antes que ellos.  Nunca se podría quitar, lo llevaba al cuello incluso cuando trabajaba, dormía o se internaba durante varios días en el monte.
+                                    
+                                    Durante un tiempo, nadie encontró nada extraño en él, sin embargo, comenzaron a surgir pequeñas historias que, tomadas por separado, parecían no tener importancia. Algunas personas aseguraban haberlo visto regresar del monte mucho más tarde de lo habitual; otras decían haberlo encontrado en un camino cuando, según sus compañeros, todavía debía estar lejos de allí. Lo más extraño era que las descripciones de su rostro no coincidían.
+                                    
+                                    Lo único que todas las personas recordaban  era el medallón, una noche lluviosa salió  hacia el monte para realizar su recorrido habitual,  los caminos estaban cubiertos de barro, el guerrero conocía perfectamente aquella zona, por lo que nadie se preocupó cuando no regresó a la hora acostumbrada.
+                                    
+                                    Pasó el tiempo y hombres del pueblo salieron a buscarlo, encontrando sus huellas cerca de un antiguo sendero y siguiendo el camino llegaron a dónde el monte era más espeso. Allí encontraron algunas de sus pertenencias, pero no había rastro de B’alam.
+                                    
+                                     Buscaron durante varios días y nunca encontraron su cuerpo.
+                                    
+                                    Con el tiempo, la búsqueda terminó y la vida del pueblo continuó. Como sucede con muchas historias antiguas, los detalles comenzaron a cambiar conforme pasaban los años. Algunos decían que B’alam se había perdido; otros creían que había abandonado el pueblo por voluntad propia. Para la mayoría, simplemente se convirtió en uno de tantos hombres cuyo destino quedó sin explicación.
+                                    
+                                    Con el correr de los años, volvieron a verlo otra vez.
+                                    
+                                    Primero fueron apariciones aisladas, aseguraban haber visto a un hombre caminando por el antiguo sendero, otros decían haber distinguido una figura inmóvil entre los arboles, ninguno podía afirmar que se trataba de B’alam, pero todos coincidían en un detalle, ¡sobre el pecho del hombre brillaba un objeto redondo!
+                                    
+                                    Las historias continuaron, nadie describía el mismo rostro. Para algunos era el de B’alam tal como lo recordaban; para otros era otra cosa.
+                                    
+                                    Mucho tiempo después, unos campesinos encontraron un objeto enterrado cerca del lugar donde B’alam había desaparecido, cubierto de tierra  perdido parte de su brillo, pero al limpiarlo reconocieron inmediatamente la figura del jaguar; ¡El medallón había vuelto a aparecer!.
+                                    
+                                    Nadie quiso quedárselo debido a la leyenda que decía que estaba maldito.
+                                    
+                                    Lo llevaron al pueblo y durante algunos días permaneció guardado entre las pertenencias de los ancianos, hasta que una mañana desapareció. No había señales de que alguien hubiera entrado a buscarlo y nadie reconoció haberlo tomado. Se revisaron los lugares donde podía haberse perdido, pero nunca volvió a encontrarse.
+                                    
+                                    La historia dejó de contarse con tanta frecuencia, las nuevas generaciones comenzaron a verla como una superstición de los mayores y el antiguo sendero quedó prácticamente abandonado, los árboles cubrieron buena parte del camino y solamente quienes todavía trabajaban cerca del monte se atrevían a recorrerlo.
+                                    
+                                    Los lugareños decían que especialmente después de una noche de lluvia, aparecían huellas en el barro.
+                                    
+                                    Que comenzaban dentro del monte y seguían el antiguo sendero hasta acercarse a las primeras casas del pueblo, lo extraño era que siempre parecían pertenecer a una sola persona y nunca se encontraba un segundo.
+                                    
+                                    Tal vez B’alam desapareció aquella noche y jamás volvió, tal vez las personas confundieron a otros hombres con el guerrero y convirtieron una desaparición en una historia que sobrevivió al tiempo, ¡Nadie puede asegurarlo!.
+                                    
+                                    ¡Lo único que permanece es el medallón del jaguar y las huellas que, de vez en cuando, aparecen después de la lluvia!.
+                                    
+                                </p>
+            
+                                <p>
+                                </p>
+            
+                                <p>
+                                </p>
+            
+                                <!-- Continúa aquí toda la leyenda -->
+            
+                            </div>
+            
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERSONAJE
+    ====================================================== -->
+
+    <section
+        id="personaje"
+        class="character-section">
+
+        <div class="container character-grid">
+
+
+            <div class="character-image reveal">
+
+                <img
+                    src="assets/personaje1.png"
+                    alt="Diseño del personaje">
+
+            </div>
+
+
+            <div class="character-content reveal">
+
+                <span class="eyebrow">
+                    El personaje
+                </span>
+
+
+                <h2>
+                    De la leyenda al diseño.
+                </h2>
+
+
+                <p>
+
+                    El personaje del proyecto toma como base los
+                    elementos principales de la leyenda y los adapta
+                    a una representación física capaz de interactuar
+                    con el público.
+
+                </p>
+
+
+                <p>
+
+                    Su apariencia, comportamiento y movimientos fueron
+                    diseñados para conservar la esencia del relato
+                    original, pero incorporando tecnología
+                    contemporánea.
+
+                </p>
+
+
+                <div class="character-tags">
+
+                    <span>Diseño</span>
+                    <span>Movimiento</span>
+                    <span>Interacción</span>
+                    <span>IA</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ANIMATRÓNICO
+    ====================================================== -->
+
+    <section
+        id="animatronico"
+        class="features-section">
+
+        <div class="container">
+
+
+            <div class="section-header reveal">
+
+                <span class="eyebrow">
+                    El proyecto
+                </span>
+
+
+                <h2>
+                    Un personaje construido para interactuar.
+                </h2>
+
+
+                <p>
+
+                    El animatrónico combina elementos físicos y
+                    tecnológicos para representar al personaje
+                    y generar una experiencia interactiva.
+
+                </p>
+
+            </div>
+
+
+            <div class="features-grid">
+
+
+                <article class="feature-card reveal">
+
+                    <span class="feature-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Estructura
+                    </h3>
+
+                    <p>
+
+                        Describe aquí la estructura física,
+                        materiales, dimensiones y elementos
+                        utilizados para construir el cuerpo
+                        del animatrónico.
+
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
+
+                    <span class="feature-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Movimiento
+                    </h3>
+
+                    <p>
+
+                        Explica los mecanismos responsables de
+                        los movimientos, como servomotores,
+                        motores u otros actuadores.
+
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
+
+                    <span class="feature-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Sensores
+                    </h3>
+
+                    <p>
+
+                        Describe cómo el proyecto detecta la
+                        presencia o interacción de las personas.
+
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
+
+                    <span class="feature-number">
+                        04
+                    </span>
+
+                    <h3>
+                        Inteligencia artificial
+                    </h3>
+
+                    <p>
+
+                        Explica cómo se utiliza la inteligencia
+                        artificial para permitir que el personaje
+                        responda o interactúe con el público.
+
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
+
+                    <span class="feature-number">
+                        05
+                    </span>
+
+                    <h3>
+                        Audio
+                    </h3>
+
+                    <p>
+
+                        Sistema utilizado para reproducir la voz,
+                        sonidos o efectos relacionados con
+                        el personaje.
+
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card reveal">
+
+                    <span class="feature-number">
+                        06
+                    </span>
+
+                    <h3>
+                        Iluminación
+                    </h3>
+
+                    <p>
+
+                        Elementos de iluminación utilizados para
+                        reforzar la presencia y ambientación
+                        del personaje.
+
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DIAGRAMA
+    ====================================================== 
+
+    <section
+        id="diagrama"
+        class="diagram-section">
+
+        <div class="container">
+
+
+            <div class="section-header reveal">
+
+                <span class="eyebrow">
+                    Arquitectura del proyecto
+                </span>
+
+
+                <h2>
+                    Así funciona el sistema.
+                </h2>
+
+
+                <p>
+
+                    El siguiente diagrama muestra la relación entre
+                    los sensores, el controlador, los actuadores y
+                    los sistemas de interacción del animatrónico.
+
+                </p>
+
+            </div>
+
+
+            <div class="diagram-container reveal">
+
+                <img
+                    src="img/diagrama-esquematico.png"
+                    class="responsive-diagram"
+                    alt="Diagrama esquemático del animatrónico">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    -->
+
+
+    <!-- =====================================================
+         PROCESO DE CONSTRUCCIÓN
+    ====================================================== 
+
+    <section
+        id="proceso"
+        class="process-section">
+
+        <div class="container">
+
+
+            <div class="section-header reveal">
+
+                <span class="eyebrow">
+                    Proceso de construcción
+                </span>
+
+
+                <h2>
+                    De una idea a un personaje físico.
+                </h2>
+
+
+                <p>
+
+                    El desarrollo del proyecto se realizó mediante
+                    diferentes etapas de diseño, construcción,
+                    programación y pruebas.
+
+                </p>
+
+            </div>
+
+
+            <div class="process-grid">
+
+
+                <article class="process-card reveal">
+
+                    <img
+                        src="img/proceso-01.jpg"
+                        alt="Diseño inicial">
+
+                    <div class="process-info">
+
+                        <span>01</span>
+
+                        <h3>
+                            Diseño
+                        </h3>
+
+                        <p>
+                            Desarrollo de la idea y diseño inicial
+                            del personaje.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <img
+                        src="img/proceso-02.jpg"
+                        alt="Construcción de estructura">
+
+                    <div class="process-info">
+
+                        <span>02</span>
+
+                        <h3>
+                            Construcción
+                        </h3>
+
+                        <p>
+                            Construcción de la estructura física.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <img
+                        src="img/proceso-03.jpg"
+                        alt="Instalación electrónica">
+
+                    <div class="process-info">
+
+                        <span>03</span>
+
+                        <h3>
+                            Electrónica
+                        </h3>
+
+                        <p>
+                            Integración de sensores, actuadores
+                            y controlador.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <img
+                        src="img/proceso-04.jpg"
+                        alt="Programación">
+
+                    <div class="process-info">
+
+                        <span>04</span>
+
+                        <h3>
+                            Programación
+                        </h3>
+
+                        <p>
+                            Desarrollo del sistema de control
+                            e interacción.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <img
+                        src="img/proceso-05.jpg"
+                        alt="Pruebas">
+
+                    <div class="process-info">
+
+                        <span>05</span>
+
+                        <h3>
+                            Pruebas
+                        </h3>
+
+                        <p>
+                            Pruebas de movimiento, sensores
+                            e interacción.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="process-card reveal">
+
+                    <img
+                        src="img/proceso-06.jpg"
+                        alt="Resultado final">
+
+                    <div class="process-info">
+
+                        <span>06</span>
+
+                        <h3>
+                            Resultado
+                        </h3>
+
+                        <p>
+                            Integración final del animatrónico
+                            y escenario.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    -->
+
+
+    <!-- =====================================================
+         ESCENARIO
+    ====================================================== -->
+
+    <section class="scenario-section">
+
+        <div class="container scenario-grid">
+
+
+            <div class="reveal">
+
+                <span class="eyebrow">
+                    Ambientación
+                </span>
+
+
+                <h2>
+                    El escenario también cuenta la historia.
+                </h2>
+
+
+                <p>
+
+                    El espacio donde se presenta el animatrónico fue
+                    diseñado para complementar la leyenda. Los
+                    materiales, iluminación, distribución y elementos
+                    visuales buscan crear una atmósfera coherente
+                    con el personaje.
+
+                </p>
+
+            </div>
+
+
+            <div class="scenario-image reveal">
+
+                <img
+                    src="assets/escenario.jpeg"
+                    alt="Escenario del proyecto">
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="site-footer">
+    <div class="footer-content">
+
+        <!-- Información institucional -->
+        <div class="institution-info">
+
+            <h2 class="footer-institution">
+                <a
+                    href="https://www.buap.mx/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    BENEMÉRITA UNIVERSIDAD AUTÓNOMA DE PUEBLA
+                </a>
+            </h2>
+
+            <p class="footer-subtitle">
+                COMPLEJO REGIONAL CENTRO | PREPARATORIA ACATZINGO
+            </p>
+
+            <p class="footer-project">
+                PROYECTO DE COCOTRÓN |
+                <span>B´ALAM</span>
+            </p>
+
+        </div>
+
+
+        <!-- Integrantes y desarrollo -->
+        <div class="team-info">
+
+            <div class="footer-group">
+                <h4>Integrantes:</h4>
+
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+
+
+            <div class="footer-group development">
+                <h4>Diseño y Desarrollo:</h4>
+
+                <p></p>
+            </div>
+
+        </div>
+
+    </div>
+</footer>
+
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script>
+
+
+    /* =====================================================
+       CARRUSEL AUTOMÁTICO
+    ====================================================== */
+
+    const track =
+        document.getElementById("carouselTrack");
+
+    const slides =
+        document.querySelectorAll(".carousel-slide");
+
+    let currentSlide = 0;
+
+
+    function nextSlide() {
+
+        if (!track || slides.length === 0) return;
+
+        currentSlide++;
+
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+
+        track.style.transform =
+            `translateX(-${currentSlide * 100}%)`;
+    }
+
+
+    setInterval(nextSlide, 3500);
+
+
+    /* =====================================================
+       ANIMACIONES AL HACER SCROLL
+    ====================================================== */
+
+    const revealElements =
+        document.querySelectorAll(".reveal");
+
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("visible");
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12
+            }
+
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+
+    /* =====================================================
+       NAVEGACIÓN ACTIVA
+    ====================================================== */
+
+    const navigationLinks =
+        document.querySelectorAll(
+            ".nav-links a[data-section]"
+        );
+
+
+    const navigationSections =
+        document.querySelectorAll(
+            "main section[id]"
+        );
+
+
+    const navigationObserver =
+        new IntersectionObserver(
+
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) return;
+
+
+                    const currentId =
+                        entry.target.id;
+
+
+                    navigationLinks.forEach(link => {
+
+                        link.classList.remove("active");
+
+
+                        if (
+                            link.dataset.section ===
+                            currentId
+                        ) {
+
+                            link.classList.add("active");
+
+                        }
+
+                    });
+
+                });
+
+            },
+
+            {
+                rootMargin:
+                    "-25% 0px -60% 0px",
+
+                threshold: 0
+            }
+
+        );
+
+
+    navigationSections.forEach(section => {
+
+        navigationObserver.observe(section);
+
+    });
+
+
+    /* =====================================================
+       HEADER AL HACER SCROLL
+    ====================================================== */
+
+    const header =
+        document.getElementById("site-header");
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (window.scrollY > 30) {
+
+                header.style.boxShadow =
+                    "0 15px 40px rgba(21,19,19,.16)";
+
+            } else {
+
+                header.style.boxShadow =
+                    "0 12px 35px rgba(21,19,19,.10)";
+
+            }
+
+        },
+        { passive: true }
+    );
+
+
+</script>
+
+
+</body>
+</html>
