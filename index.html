@@ -637,11 +637,13 @@
     }
 
 
-    /* =========================================================
-       LEYENDA / CARRUSEL
-    ========================================================== */
 
-    .legend-content {
+
+/* =========================================================
+   LEYENDA / CARRUSEL
+========================================================== */
+
+.legend-content {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -650,6 +652,8 @@
 
     height: 420px;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 
     padding: 28px 32px;
     text-align: left;
@@ -678,15 +682,19 @@
 .legend-text {
     flex: 1;
     min-height: 0;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
 
     overflow-y: auto;
     overflow-x: hidden;
 
-    padding-right: 18px;
+    padding-right: 12px;
 
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.8;
+    overflow-wrap: break-word;
 }
 
 .legend-text p {
@@ -715,6 +723,23 @@
 .legend-text::-webkit-scrollbar-thumb:hover {
     background: var(--terracotta);
 }
+
+/* Adaptación para celulares */
+@media (max-width: 600px) {
+    .legend-content {
+        padding: 22px 16px;
+    }
+
+    .legend-text {
+        padding-right: 8px;
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+}
+
+
+
+
 
 
     /* =========================================================
@@ -932,6 +957,176 @@
 
 
     /* =========================================================
+       DESCRIPCIÓN DEL ANIMATRÓNICO
+    ========================================================== */
+
+    /* Botón Leer más */
+.feature-read-more {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 12px;
+    padding: 10px 18px;
+    border: 1px solid var(--wine);
+    border-radius: 999px;
+    background: var(--wine);
+    color: var(--cream);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.feature-read-more:hover {
+    background: transparent;
+    color: var(--wine);
+    transform: translateY(-2px);
+}
+
+/* Fondo de la ventana */
+.feature-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(5px);
+}
+
+.feature-modal[hidden] {
+    display: none;
+}
+
+/* Contenido de la ventana */
+.feature-modal-content {
+    position: relative;
+    width: min(720px, 100%);
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 38px;
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    background: var(--cream);
+    color: var(--text-medium);
+    box-sizing: border-box;
+    animation: featureModalAppear 0.25s ease;
+}
+
+.feature-modal-content h2 {
+    margin: 16px 40px 22px 0;
+    color: var(--wine);
+}
+
+.feature-modal-body {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.feature-modal-body p {
+    margin: 0 0 18px;
+}
+
+.feature-modal-body ul,
+.feature-modal-body ol {
+    padding-left: 24px;
+    margin: 0 0 18px;
+}
+
+.feature-modal-body li {
+    margin-bottom: 10px;
+}
+
+/* Botón de cierre */
+
+.feature-modal-close {
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 10;
+
+    width: 38px;
+    height: 38px;
+    margin-right: -12px;
+    margin-bottom: 8px;
+
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    background: var(--cream);
+    color: var(--text-medium);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+
+.feature-modal-close:hover {
+    background: var(--wine);
+    color: var(--cream);
+}
+
+@keyframes featureModalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .feature-modal {
+        padding: 12px;
+    }
+
+    .feature-modal-content {
+        padding: 28px 22px;
+        max-height: 90vh;
+    }
+}
+
+
+/* Texto contraído */
+.feature-description {
+    overflow-wrap: anywhere;
+}
+
+/* Ocultar el contenido posterior al límite */
+.feature-description.is-collapsed .feature-extra {
+    display: none;
+}
+
+/* Botón Leer más */
+.feature-read-more {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 18px;
+    border: 1px solid var(--wine);
+    border-radius: 999px;
+    background: var(--wine);
+    color: var(--cream);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.feature-read-more:hover {
+    background: transparent;
+    color: var(--wine);
+}
+
+
+
+
+    /* =========================================================
        DIAGRAMA
     ========================================================== */
 
@@ -986,17 +1181,6 @@
 
         background:
             var(--beige-light);
-    }
-
-
-    .process-grid {
-
-        display: grid;
-
-        grid-template-columns:
-            repeat(3, 1fr);
-
-        gap: 22px;
     }
 
 
@@ -1082,6 +1266,236 @@
         color:
             var(--text-medium);
     }
+
+
+    
+/* Navegación interna de la galería */
+.process-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.process-tab {
+    padding: 11px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    background: var(--cream);
+    color: var(--text-medium);
+    font: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background var(--transition),
+                color var(--transition),
+                border-color var(--transition);
+}
+
+.process-tab:hover,
+.process-tab.active {
+    background: var(--wine);
+    color: var(--cream);
+    border-color: var(--wine);
+}
+
+/* Galería con desplazamiento horizontal */
+.process-grid {
+    display: flex;
+    gap: 22px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 18px;
+    box-sizing: border-box;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--wine) var(--border-light);
+}
+
+.process-grid .process-card {
+    flex: 0 0 calc((100% - 44px) / 3);
+    min-width: 0;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+}
+
+.process-grid .process-card img {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.process-hint {
+    margin-top: 8px;
+    color: var(--text-medium);
+    font-size: 0.82rem;
+}
+
+/* Tabletas: dos tarjetas visibles */
+@media (max-width: 900px) {
+    .process-grid .process-card {
+        flex-basis: calc((100% - 22px) / 2);
+    }
+}
+
+/* Celulares: una tarjeta y parte de la siguiente */
+@media (max-width: 600px) {
+    .process-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+    }
+
+    .process-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .process-tab {
+        flex-shrink: 0;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+    }
+
+    .process-grid {
+        gap: 14px;
+    }
+
+    .process-grid .process-card {
+        flex-basis: 84%;
+    }
+
+    .process-grid .process-card img {
+        height: 230px;
+    }
+}
+
+
+/*=====================================================
+        AMPLIACIÓN DE IMAGEN
+    ====================================================== */
+
+    /* Vista previa ampliada */
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 24px 30px;
+    background: rgba(20, 15, 15, 0.94);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    box-sizing: border-box;
+}
+
+.image-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 1100px);
+    height: 100%;
+    min-width: 0;
+}
+
+.lightbox-content img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100% - 65px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+#lightboxCaption {
+    color: var(--cream);
+    text-align: center;
+    margin: 14px 0 5px;
+    font-size: 0.95rem;
+}
+
+#lightboxCounter {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.lightbox-close,
+.lightbox-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--cream);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    background: var(--wine);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.lightbox-nav {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.process-grid .process-card img {
+    cursor: zoom-in;
+}
+
+@media (max-width: 600px) {
+    .image-lightbox {
+        gap: 10px;
+        padding: 60px 10px 20px;
+    }
+
+    .lightbox-nav {
+        width: 36px;
+        height: 42px;
+        font-size: 16px;
+    }
+
+    .lightbox-close {
+        top: 12px;
+        right: 12px;
+    }
+
+    .lightbox-content img {
+        max-height: calc(100% - 75px);
+    }
+}
 
 
     /* =========================================================
@@ -1722,9 +2136,7 @@
 
                 <p class="hero-description">
 
-                    Una investigación que explora el origen de una
-                    leyenda, su transformación a través del tiempo y
-                    el personaje que surge de ella.
+                   
 
                 </p>
 
@@ -1824,23 +2236,20 @@
             
                             <div class="legend-text">
             
-                                <p>
-                                   LA LEYENDA DE B’ALAM
-	   Hace muchos, muchos años, cuando los caminos todavía eran de tierra y la selva comenzaba detrás de unas cuantas casas del pueblo, vivió un guerrero llamado ¡B’alam!, conocido por ser un hombre joven, de facciones marcadas,  reservado, de pocas palabras y acostumbrado a recorrer el territorio durante las noches, conocía cada sendero, cada árbol, y cada piedra del monte; vigilar los caminos y asegurarse de que nadie entrara a estas tierras sin ser visto, conocía incluso aquellos lugares a los que los demás preferían no acercarse.</p>
-	  <p> Los lugareños aseguraban que tenía el rostro de alguien mucho mayor y una cicatriz junto al ojo, incluso hubo quienes afirmaron que B’alam tenía una mirada completamente distinta a la que la conocían años atrás. En el pueblo nadie le dio demasiada importancia, en aquellos tiempos, las distancias, la oscuridad y las largas jornadas de trabajo eran suficientes para explicar las confusiones.</p>
-     <p> B’alam llevaba siempre consigo un medallón redondo de color oscuro, en el centro tenía grabada la figura de un jaguar, alrededor unas marcas que con los años se habían vuelto difíciles de distinguir, con el paso del tiempo, nadie encontró nada extraño en él, sin embargo, comenzaron a surgir historias y rumores. Algunos aseguraban haberlo visto regresar del monte más tarde de lo habitual, otros decían haber visto sus sombras en un camino lúgubre y solitario; lo más extraño era que las descripciones de su rostro no coincidían.</p>
-               <p> Se oía decir que el medallón, era una joya a base de metales y piedras preciosas,  tallada por Dioses ancestrales que cuidaban de la Tierra y la humanidad,   aquella pieza había pasado de generación en generación por siglos, pero también representaba  una maldición para quien lo portará, viviría con una soledad infinita, jamás debía enamorarse, jamás conocería el verdadero amor…. </p>
-	                <p>  Durante una noche lluviosa, Bálam salió  hacia el monte para realizar su recorrido habitual,  los caminos se encontraban cubiertos de barro, arboles caídos, relámpagos, truenos y una envolvente tempestad. El guerrero conocía perfectamente aquella zona, por lo que nadie se preocupó cuando a la mañana siguiente, su ausencia pasaba desapercibida  por su misteriosa desaparición. </p>
-                          <p>   Con el paso del tiempo, los hombres del pueblo salieron a buscarlo, encontrando sus huellas cerca de un antiguo sendero y siguiendo el camino llegaron a dónde el monte era más espeso., allí encontraron algunas de sus pertenencias, pero no había rastro alguno  de B’alam, buscaron durante varios días y nunca encontraron su cuerpo.</p>
-	         <p>  La búsqueda terminó y la vida del pueblo continuó, como sucede con muchas historias antiguas, los detalles comenzaron a cambiar conforme pasaban los años. Algunos decían que B’alam se había perdido; otros creían que había abandonado el pueblo por voluntad propia, para la mayoría, simplemente se convirtió en uno de tantos hombres cuyo destino quedó sin explicación…</p>
-	            <p> Con el correr de los años, los rumores y las historias continuaron, los campesinos encontraron un objeto enterrado cerca del lugar donde B’alam había desaparecido, cubierto de tierra,  casi sin brillo, con grietas más profundas, pero al limpiarlo reconocieron inmediatamente la figura del jaguar; ¡El medallón había vuelto a aparecer! , nadie quiso quedárselo; ¡la leyenda decía que estaba maldito!</p>
-	          <p>   Con mucho miedo y un poco de valor decidieron llevarlo al pueblo, durante algunos días permaneció guardado entre las pertenencias de los más ancianos, hasta que una mañana desapareció. No había señales de que, o de quién hubiera entrado a buscarlo, nadie reconoció haberlo tomado. Se hurgó hasta el lugar más recóndito, pero nunca volvió a verse. La historia dejó de contarse con tanta frecuencia, las nuevas generaciones comenzaron a verla como una superstición de los mayores y el antiguo sendero quedó prácticamente abandonado, los árboles cubrieron buena parte del camino y solamente quienes todavía trabajaban cerca del monte se atrevían a recorrerlo.</p>
-<p>Los lugareños decían que especialmente después de una noche de tempestuosa lluvia, aparecían huellas en el barro, que comenzaban dentro del monte y seguían el antiguo sendero hasta acercarse a las primeras casas del pueblo; tal vez B’alam desapareció aquella noche y jamás volvió, tal vez las personas confundieron a otros hombres con el guerrero y convirtieron una desaparición en una historia que sobrevivió al tiempo, ¡Nadie puede asegurarlo! ¡Lo único que permanece es el medallón del jaguar y las huellas que, de vez en cuando, aparecen después de la lluvia!...</p>
-<p>"Ve por ahí y cuídate bien"
-"Xeen te'elo' malo' kananta" (o "Xeen te'elo' ma'alob kananta")
-Frase maya</p>
- 
-                                </p>
+                            <p>
+	                           Hace muchos, muchos años, cuando los caminos todavía eran de tierra y la selva comenzaba detrás de unas cuantas casas del pueblo, vivió un guerrero llamado ¡B’alam!, conocido por ser un hombre joven, de facciones marcadas,  reservado, de pocas palabras y acostumbrado a recorrer el territorio durante las noches, conocía cada sendero, cada árbol, y cada piedra del monte; vigilar los caminos y asegurarse de que nadie entrara a estas tierras sin ser visto, conocía incluso aquellos lugares a los que los demás preferían no acercarse.</p>
+	                        <p> Los lugareños aseguraban que tenía el rostro de alguien mucho mayor y una cicatriz junto al ojo, incluso hubo quienes afirmaron que B’alam tenía una mirada completamente distinta a la que la conocían años atrás. En el pueblo nadie le dio demasiada importancia, en aquellos tiempos, las distancias, la oscuridad y las largas jornadas de trabajo eran suficientes para explicar las confusiones.</p>
+                            <p> B’alam llevaba siempre consigo un medallón redondo de color oscuro, en el centro tenía grabada la figura de un jaguar, alrededor unas marcas que con los años se habían vuelto difíciles de distinguir, con el paso del tiempo, nadie encontró nada extraño en él, sin embargo, comenzaron a surgir historias y rumores. Algunos aseguraban haberlo visto regresar del monte más tarde de lo habitual, otros decían haber visto sus sombras en un camino lúgubre y solitario; lo más extraño era que las descripciones de su rostro no coincidían.</p>
+                            <p> Se oía decir que el medallón, era una joya a base de metales y piedras preciosas,  tallada por Dioses ancestrales que cuidaban de la Tierra y la humanidad,   aquella pieza había pasado de generación en generación por siglos, pero también representaba  una maldición para quien lo portará, viviría con una soledad infinita, jamás debía enamorarse, jamás conocería el verdadero amor…. </p>
+	                        <p>  Durante una noche lluviosa, Bálam salió  hacia el monte para realizar su recorrido habitual,  los caminos se encontraban cubiertos de barro, arboles caídos, relámpagos, truenos y una envolvente tempestad. El guerrero conocía perfectamente aquella zona, por lo que nadie se preocupó cuando a la mañana siguiente, su ausencia pasaba desapercibida  por su misteriosa desaparición. </p>
+                            <p>Con el paso del tiempo, los hombres del pueblo salieron a buscarlo, encontrando sus huellas cerca de un antiguo sendero y siguiendo el camino llegaron a dónde el monte era más espeso, allí encontraron algunas de sus pertenencias, pero no había rastro alguno  de B’alam, buscaron durante varios días y nunca encontraron su cuerpo.</p>
+	                        <p>La búsqueda terminó y la vida del pueblo continuó, como sucede con muchas historias antiguas, los detalles comenzaron a cambiar conforme pasaban los años. Algunos decían que B’alam se había perdido; otros creían que había abandonado el pueblo por voluntad propia, para la mayoría, simplemente se convirtió en uno de tantos hombres cuyo destino quedó sin explicación…</p>
+	                        <p> Con el correr de los años, los rumores y las historias continuaron, los campesinos encontraron un objeto enterrado cerca del lugar donde B’alam había desaparecido, cubierto de tierra,  casi sin brillo, con grietas más profundas, pero al limpiarlo reconocieron inmediatamente la figura del jaguar; ¡El medallón había vuelto a aparecer! , nadie quiso quedárselo; ¡la leyenda decía que estaba maldito!</p>
+	                        <p>Con mucho miedo y un poco de valor decidieron llevarlo al pueblo, durante algunos días permaneció guardado entre las pertenencias de los más ancianos, hasta que una mañana desapareció. No había señales de que, o de quién hubiera entrado a buscarlo, nadie reconoció haberlo tomado. Se hurgó hasta el lugar más recóndito, pero nunca volvió a verse. La historia dejó de contarse con tanta frecuencia, las nuevas generaciones comenzaron a verla como una superstición de los mayores y el antiguo sendero quedó prácticamente abandonado, los árboles cubrieron buena parte del camino y solamente quienes todavía trabajaban cerca del monte se atrevían a recorrerlo.</p>
+                            <p>Los lugareños decían que especialmente después de una noche de tempestuosa lluvia, aparecían huellas en el barro, que comenzaban dentro del monte y seguían el antiguo sendero hasta acercarse a las primeras casas del pueblo; tal vez B’alam desapareció aquella noche y jamás volvió, tal vez las personas confundieron a otros hombres con el guerrero y convirtieron una desaparición en una historia que sobrevivió al tiempo, ¡Nadie puede asegurarlo! ¡Lo único que permanece es el medallón del jaguar y las huellas que, de vez en cuando, aparecen después de la lluvia!...</p>
+                            <p>"Ve por ahí y cuídate bien"
+                                "Xeen te'elo' ma'alob kananta"<br>
+                                Frase maya</p>
             
                             </div>
             
@@ -1855,6 +2264,38 @@ Frase maya</p>
         </div>
 
     </section>
+
+
+    <!-- =====================================================
+    PORQUE ESA LEYENDA
+====================================================== -->
+
+
+
+<section id="eleccion-leyenda" class="features-section">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Nuestra elección</span>
+
+            <h2>¿Por qué elegimos esta leyenda?</h2>
+
+            <p>
+                Elegimos inventar la leyenda de Balam, el guerrero jaguar maya, 
+                para mi proyecto de Cocotrón porque quería combinar la tecnología 
+                con la riqueza cultural de México. Nos inspiramo en la cultura maya, 
+                en la que el jaguar representa la fuerza, el valor y el poder. 
+                A través de Balam, buscamos crear un personaje que no solo destaque 
+                por sus funciones robóticas, 
+                mover sus extremidades y comunicarse, sino que también transmita una historia que mantenga 
+                viva la imaginación y las tradiciones de nuestros antepasados. 
+                Para nosotros, este proyecto representa la unión entre el pasado y el 
+                futuro, demostrando que la robótica puede utilizarse para aprender, 
+                innovar y preservar nuestra identidad cultural.
+            </p>
+        </div>
+    </div>
+</section>
+
 
 
     <!-- =====================================================
@@ -1891,8 +2332,8 @@ Frase maya</p>
 
                 <p>
 
-                    El personaje del proyecto toma como base los
-                    elementos principales de la leyenda y los adapta
+                    El animatrónico toma como base el personaje 
+                    de la leyenda y lo adaptamos
                     a una representación física capaz de interactuar
                     con el público.
 
@@ -1903,8 +2344,7 @@ Frase maya</p>
 
                     Su apariencia, comportamiento y movimientos fueron
                     diseñados para conservar la esencia del relato
-                    original, pero incorporando tecnología
-                    contemporánea.
+                    original, pero incorporando tecnología.
 
                 </p>
 
@@ -1929,7 +2369,7 @@ Frase maya</p>
          ANIMATRÓNICO
     ====================================================== -->
 
-    <section
+    <!-- <section
         id="animatronico"
         class="features-section">
 
@@ -2012,13 +2452,18 @@ Frase maya</p>
                     </span>
 
                     <h3>
-                        Sensores
+                        Componentes del animatronico y funcionamiento
                     </h3>
 
                     <p>
+                        El animatrónico está compuesto por una serie de componentes electrónicos y mecánicos que trabajan en conjunto para lograr su funcionamiento. Entre los principales componentes se encuentran:
 
-                        Describe cómo el proyecto detecta la
-                        presencia o interacción de las personas.
+                        <ul>
+                            <li>Microcontrolador ESP32: Actúa como el cerebro del animatrónico, coordinando las señales de los sensores y controlando los actuadores.</li>
+                            <li>Servomotores: Responsables de los movimientos precisos de la mandíbula, cabeza y otros elementos móviles del animatrónico.</li>
+                            <li>Micrófono: Captura la voz del usuario para su procesamiento mediante el sistema de reconocimiento de voz.</li>
+                            <li>Bocinas: Reproducen las respuestas generadas por el sistema de inteligencia artificial, permitiendo una comunicación audible con el usuario.</li>
+                        </ul>
 
                     </p>
 
@@ -2032,15 +2477,15 @@ Frase maya</p>
                     </span>
 
                     <h3>
-                        Inteligencia artificial
+                        Integración de inteligencia artificial
                     </h3>
 
                     <p>
+                      El primer modelo utilizado para la interacción y pruebas fue Open Claw, un modelo de codigo abierto. Este modelo no logro completar el objetivo de responder preguntas, ni de generar respuestas coherentes en tiempo real y mantener un flujo de conversación con los usuarios. 
+                    </p>
 
-                        Explica cómo se utiliza la inteligencia
-                        artificial para permitir que el personaje
-                        responda o interactúe con el público.
-
+                    <p>
+                        Posteriormente, se implementó Ollama, que permitió al animatrónico generar respuestas más complejas y contextualmente relevantes. Este modelo mejoró la capacidad del animatrónico para mantener conversaciones más naturales y ofrecer información más detallada sobre la leyenda y el personaje. Se utilizó para probar la interacción del animatrónico y evaluar su capacidad de respuesta ante diferentes preguntas y situaciones.
                     </p>
 
                 </article>
@@ -2053,14 +2498,18 @@ Frase maya</p>
                     </span>
 
                     <h3>
-                        Audio
+                        Salida de voz y prueba de audio
                     </h3>
 
                     <p>
 
-                        Sistema utilizado para reproducir la voz,
-                        sonidos o efectos relacionados con
-                        el personaje.
+                        Para el desarrollo del sistema de audio del animatrónico, inicialmente se realizaron pruebas con diferentes herramientas de síntesis de voz para lograr que el personaje pudiera responder de manera audible a los usuarios. Se intentó utilizar el servicio de texto a voz (TTS) de Google Gemini, integrado mediante el ESP32, pero se presentaron dificultades para obtener y reproducir correctamente el audio generado, además de problemas relacionados con las respuestas del servicio y las limitaciones de acceso.
+
+                        Posteriormente, se probó Piper, una herramienta de síntesis de voz local. Sin embargo, la voz obtenida presentó limitaciones en naturalidad y fluidez. Por ello, se implementó Kokoro, que permitió generar respuestas habladas con una voz masculina mediante la variante.
+                        
+                        También se integró Whisper para reconocer la voz del usuario a través de un micrófono y convertirla en texto. Finalmente, se trabajó en la integración de estos componentes con Gemini para generar respuestas que se reproducen mediante las bocinas de la computadora. Además, se implementó la sincronización del movimiento de la mandíbula con el audio mediante un servomotor controlado por el ESP32.
+                        
+                        Estas pruebas permitieron establecer una base para la interacción por voz del animatrónico. Actualmente, se busca reducir los tiempos de respuesta, mejorar la continuidad de la reproducción y lograr una sincronización más natural entre la voz y el movimiento de la mandíbula.
 
                     </p>
 
@@ -2091,12 +2540,374 @@ Frase maya</p>
 
         </div>
 
-    </section>
+    </section>-->
+
+    
+<section id="animatronico" class="features-section">
+    <div class="container">
+
+        <div class="section-header reveal">
+            <span class="eyebrow">
+                El proyecto
+            </span>
+
+            <h2>
+                Un personaje construido para interactuar.
+            </h2>
+
+            <p>
+                El animatrónico combina elementos físicos y
+                tecnológicos para representar al personaje
+                y generar una experiencia interactiva.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <!-- 01. ESTRUCTURA -->
+            <article class="feature-card reveal">
+                <span class="feature-number">01</span>
+
+                <h3>Estructura</h3>
+
+                <p>
+                    La estructura base esta construida con tubos de pvc, madera, latéx e impresión en 3D, reforzada y/o unida con tornillos. Porque 
+                    decidimos utilizar estos materiales ?
+
+                </p>
+
+                <button class="feature-read-more" type="button">
+                    Leer más
+                </button>
+
+                <div class="feature-full-text" hidden>
+                    <p>
+                        La estructura base esta construida con tubos de pvc, madera, latéx e impresión en 3D, reforzada y/o unida con tornillos. Porque 
+                        decidimos utilizar estos materiales ?
+                        Usamos estos materiales ya que buscamos el poco peso del cuerpo además de no ser costoso, nosotros realizar este proceso de construcción nos fue más fácil amoldarlo a nuestras necesidades. 
+                        La base interior del animatronico es la más importante ya que sobre ella cae el peso del látex y es donde están colocados los brazos.
+                        El látex fue usado como la piel de nuestro animatronico y fue maquillado para dar el aspecto de jaguar.
+                </div>
+            </article>
+
+            <!-- 02. MOVIMIENTO -->
+            <article class="feature-card reveal">
+                <span class="feature-number">02</span>
+
+                <h3>Movimiento</h3>
+
+                <p>
+                    El movimiento del casco de Balam se controla mediante dos servomotores conectados a los pines GPIO 25 y 26 del ESP32. 
+                    Ambos servos se mueven en sentidos opuestos para levantar y bajar el casco. Cuando Balam comienza a hablar, Python envía la orden L al ESP32 y el casco se levanta gradualmente. 
+     
+                </p>
+
+                <button class="feature-read-more" type="button">
+                    Leer más
+                </button>
+
+                <div class="feature-full-text" hidden>
+                    <p>
+                        El movimiento del casco de Balam se controla mediante dos servomotores conectados a los pines GPIO 25 y 26 del ESP32. 
+                        Ambos servos se mueven en sentidos opuestos para levantar y bajar el casco. Cuando Balam comienza a hablar, Python envía la orden L al ESP32 y el casco se levanta gradualmente. 
+         
+                        Durante toda la reproducción de la respuesta, permanece elevado. Cuando termina de hablar, Python envía la orden B y el casco regresa a su posición inicial.
+                        El movimiento del casco de Balam se controla mediante dos servomotores conectados a los pines GPIO 25 y 26 del ESP32. 
+                        Ambos servos se mueven en sentidos opuestos para levantar y bajar el casco. Cuando Balam comienza a hablar, Python envía la orden L al ESP32 y el casco se levanta gradualmente. 
+                        Durante toda la reproducción de la respuesta, permanece elevado. Cuando termina de hablar, Python envía la orden B y el casco regresa a su posición inicial.
+    
+                        La mandíbula utiliza otros dos servomotores conectados a los pines GPIO 18 y 19. Estos se controlan mediante las órdenes seriales A para abrir y C para cerrar. 
+                        Python coordina estos movimientos con la reproducción de voz para que la mandíbula se mueva mientras Balam habla. Al finalizar la respuesta, el casco baja y el sistema reanuda la escucha del usuario.
+                   
+                    </p>
+                </div>
+            </article>
+
+            <!-- 03. COMPONENTES -->
+            <article class="feature-card reveal">
+                <span class="feature-number">03</span>
+
+                <h3>
+                    Componentes del animatrónico
+                </h3>
+
+                <p>
+                    El animatrónico está compuesto por una serie
+                    de componentes electrónicos y mecánicos que
+                    trabajan en conjunto para lograr su
+                    funcionamiento.
+                </p>
+
+                <button class="feature-read-more" type="button">
+                    Leer más
+                </button>
+
+                <div class="feature-full-text" hidden>
+
+                    <p>
+                        El animatrónico está compuesto por una serie
+                        de componentes electrónicos y mecánicos que
+                        trabajan en conjunto para lograr su
+                        funcionamiento.
+                    </p>
+
+                    <p>
+                        Entre los principales componentes se encuentran:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Microcontrolador ESP32:</strong>
+                            actúa como el cerebro del animatrónico,
+                            coordinando las señales de los sensores
+                            y controlando los actuadores.
+                        </li>
+
+                        <li>
+                            <strong>Servomotores:</strong>
+                            son responsables de los movimientos
+                            precisos de la mandíbula, cabeza y otros
+                            elementos móviles del animatrónico.
+                        </li>
+
+                        <li>
+                            <strong>Micrófono:</strong>
+                            captura la voz del usuario para su
+                            procesamiento mediante el sistema de
+                            reconocimiento de voz.
+                        </li>
+
+                        <li>
+                            <strong>Bocinas:</strong>
+                            reproducen las respuestas generadas
+                            por el sistema de inteligencia artificial,
+                            permitiendo una comunicación audible
+                            con el usuario.
+                        </li>
+                    </ul>
+
+
+                    <p>
+                        Algunos extras son:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Fuente de energía:</strong>
+                            Es el sistema encargado de suministrar la corriente
+                             y el voltaje estable necesarios para alimentar todos
+                              los componentes electrónicos (la placa de control, y los motores), 
+                              garantizando que haya suficiente potencia sin caídas de tensión cuando los mecanismos se mueven.
+                        </li>
+
+                        <li>
+                            <strong>Iluminación:</strong>
+                            Se encarga de los efectos visuales
+                             (como LEDs, luces ambientales), 
+                             aportando expresividad y el toque teatral característico al animatrónico.
+                        </li>
+                    </ul>
+
+                </div>
+            </article>
+
+            <!-- 04. INTELIGENCIA ARTIFICIAL -->
+            <article class="feature-card reveal">
+                <span class="feature-number">04</span>
+
+                <h3>Integración de inteligencia artificial</h3>
+
+                <p>
+                    El primer modelo utilizado para la interacción
+                    y las pruebas fue Open Claw, un modelo de código
+                    abierto. Este modelo no logró completar el
+                    objetivo de responder preguntas, generar
+                    respuestas coherentes en tiempo real y mantener
+                    un flujo de conversación con los usuarios.
+                </p>
+
+                <button class="feature-read-more" type="button">
+                    Leer más
+                </button>
+
+
+
+                <div class="feature-full-text" hidden>
+
+                    <p>
+                        El primer modelo utilizado para la interacción
+                        y las pruebas fue Open Claw, un modelo de código
+                        abierto. Este modelo no logró completar el
+                        objetivo de responder preguntas, generar
+                        respuestas coherentes en tiempo real y mantener
+                        un flujo de conversación con los usuarios.
+                    </p>
+
+                    <p>
+                        Posteriormente, se implementó Ollama, que permitió
+                        al animatrónico generar respuestas más complejas
+                        y contextualmente relevantes. Este modelo mejoró
+                        la capacidad del animatrónico para mantener
+                        conversaciones más naturales y ofrecer información
+                        más detallada sobre la leyenda y el personaje.
+                        Se utilizó para probar la interacción y evaluar
+                        su capacidad de respuesta ante diferentes preguntas
+                        y situaciones.
+                    </p>
+
+                    <p>
+                        Como último modelo se utilizo Google Gemini invocandola por API, y como
+                         voz para la respuesta de la IA se utilizo Kokoro de Git Hub, la llamada 
+                         ocurre en el Símbolo del Sisteme de Windows y corriendo el modelo de manera local 
+                         en la computadora, el ESP32 se comunica y este mueve a los servos de la máscara y de la mandibula 
+                         así representando que habla.
+                    </p>
+                </div>
+            </article>
+
+            <!-- 05. VOZ Y AUDIO -->
+            <article class="feature-card reveal">
+                <span class="feature-number">05</span>
+
+                <h3>Salida de voz y prueba de audio</h3>
+
+                <p>
+                    Para el desarrollo del sistema de audio del
+                    animatrónico, inicialmente se realizaron pruebas
+                    con diferentes herramientas de síntesis de voz
+                    para lograr que el personaje pudiera responder
+                    de manera audible a los usuarios.
+                </p>
+
+                <button class="feature-read-more" type="button">
+                    Leer más
+                </button>
+
+                <div class="feature-full-text" hidden>
+
+                    <p>
+                        Se intentó
+                        utilizar el servicio de texto a voz (TTS) de
+                        Google Gemini, integrado mediante el ESP32,
+                        pero se presentaron dificultades para obtener
+                        y reproducir correctamente el audio generado,
+                        además de problemas relacionados con las
+                        respuestas del servicio y las limitaciones
+                        de acceso.
+                    </P>
+                    <p>   
+                        Para el desarrollo del sistema de audio del
+                        animatrónico, inicialmente se realizaron pruebas
+                        con diferentes herramientas de síntesis de voz
+                        para lograr que el personaje pudiera responder
+                        de manera audible a los usuarios. Se intentó
+                        utilizar el servicio de texto a voz (TTS) de
+                        Google Gemini, integrado mediante el ESP32,
+                        pero se presentaron dificultades para obtener
+                        y reproducir correctamente el audio generado,
+                        además de problemas relacionados con las
+                        respuestas del servicio y las limitaciones
+                        de acceso.
+                    </p>
+
+                    <p>
+                        Posteriormente, se probó Piper, una herramienta
+                        de síntesis de voz local. Sin embargo, la voz
+                        obtenida presentó limitaciones en naturalidad
+                        y fluidez. Por ello, se implementó Kokoro, que
+                        permitió generar respuestas habladas con una
+                    voz masculina mediante la variante utilizada.
+                </p>
+
+                <p>
+                    También se integró Whisper para reconocer la
+                    voz del usuario a través de un micrófono y
+                    convertirla en texto. Finalmente, se trabajó
+                    en la integración de estos componentes con
+                    Gemini para generar respuestas que se reproducen
+                    mediante las bocinas de la computadora. Además,
+                    se implementó la sincronización del movimiento
+                    de la mandíbula con el audio mediante un
+                    servomotor controlado por el ESP32.
+                </p>
+
+                <p>
+                    Estas pruebas permitieron establecer una base
+                    para la interacción por voz del animatrónico.
+                    Actualmente, se busca reducir los tiempos de
+                    respuesta, mejorar la continuidad de la
+                    reproducción y lograr una sincronización más
+                    natural entre la voz y el movimiento de la mandíbula.
+                </p>
+            
+            </article>
+
+            <!-- 06. ILUMINACIÓN 
+            <article class="feature-card reveal">
+                <span class="feature-number">06</span>
+
+                <h3>Iluminación</h3>
+
+                <p>
+                    Elementos de iluminación utilizados para
+                    reforzar la presencia y ambientación
+                    del personaje.
+                </p>
+
+                <button class="feature-read-more" type="button">
+                    Leer más
+                </button>
+
+                <div class="feature-full-text" hidden>
+                    <p>
+                        Describe aquí los elementos de iluminación,
+                        los componentes utilizados, su ubicación
+                        dentro del animatrónico y la función que
+                        cumplen en la ambientación del personaje.
+                    </p>
+                </div>
+            </article>
+            -->
+
+        </div>
+    </div>
+</section>
+
+<!-- VENTANA MODAL COMPARTIDA POR LAS SEIS TARJETAS -->
+<div class="feature-modal" id="featureModal" hidden>
+    <div
+        class="feature-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="featureModalTitle"
+    >
+        <button
+            class="feature-modal-close"
+            id="featureModalClose"
+            type="button"
+            aria-label="Cerrar ventana"
+        >
+            &times;
+        </button>
+
+        <span class="eyebrow">El proyecto</span>
+
+        <h2 id="featureModalTitle"></h2>
+
+        <div
+            class="feature-modal-body"
+            id="featureModalBody"
+        ></div>
+    </div>
+</div>
+
+
+
 
 
     <!-- =====================================================
          DIAGRAMA
-    ====================================================== 
+    ====================================================== -->
 
     <section
         id="diagrama"
@@ -2141,242 +2952,804 @@ Frase maya</p>
 
     </section>
 
-    -->
+    <!-- =====================================================
+                AMPLIACIÓN DE IMAGEN
+    ====================================================== -->
 
+    <!-- Vista previa de imágenes -->
+    <div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose"
+                aria-label="Cerrar vista previa">
+            &times;
+        </button>
+    
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev"
+                aria-label="Imagen anterior">
+            &#10094;
+        </button>
+    
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <p id="lightboxCaption"></p>
+            <span id="lightboxCounter"></span>
+        </div>
+    
+        <button class="lightbox-nav lightbox-next" id="lightboxNext"
+                aria-label="Imagen siguiente">
+            &#10095;
+        </button>
+    </div>
+    
 
     <!-- =====================================================
          PROCESO DE CONSTRUCCIÓN
-    ====================================================== 
+    ====================================================== -->
 
-    <section
-        id="proceso"
-        class="process-section">
-
+    
+    <section id="proceso" class="process-section">
         <div class="container">
-
-
+    
             <div class="section-header reveal">
-
-                <span class="eyebrow">
-                    Proceso de construcción
-                </span>
-
-
-                <h2>
-                    De una idea a un personaje físico.
-                </h2>
-
-
+                <span class="eyebrow">Proceso de construcción</span>
+    
+                <h2>De una idea a un personaje físico.</h2>
+    
                 <p>
-
                     El desarrollo del proyecto se realizó mediante
                     diferentes etapas de diseño, construcción,
                     programación y pruebas.
-
                 </p>
-
             </div>
-
-
-            <div class="process-grid">
-
-
-                <article class="process-card reveal">
-
-                    <img
-                        src="img/proceso-01.jpg"
-                        alt="Diseño inicial">
-
+    
+            <!-- Botones de navegación internos 
+            
+            <div class="process-tabs" aria-label="Etapas del proceso">
+            
+                <button
+                    class="process-tab active"
+                    type="button"
+                    data-target="proceso-diseno">
+                    Diseño y construcción
+                </button>
+            
+                <button
+                    class="process-tab"
+                    type="button"
+                    data-target="proceso-electronica">
+                    Electrónica y programación
+                </button>
+            
+                <button
+                    class="process-tab"
+                    type="button"
+                    data-target="proceso-pruebas">
+                    Pruebas y resultado
+                </button>
+            
+            </div>-->
+            
+    
+            
+            <!-- GALERÍA DE PROCESO: IMÁGENES -->
+            
+            <div class="process-grid" id="processGallery">
+            
+                <!-- 01 · DISEÑO Y CONSTRUCCIÓN -->
+                <article class="process-card reveal" id="proceso-diseno">
+                    <img src="assets/basea1.jpeg" alt="Diseño y construcción">
                     <div class="process-info">
-
                         <span>01</span>
-
-                        <h3>
-                            Diseño
-                        </h3>
-
-                        <p>
-                            Desarrollo de la idea y diseño inicial
-                            del personaje.
-                        </p>
-
+                        <h3>Prototipo</h3>
+                        <p>Diseño del primer prototipo </p>
                     </div>
-
                 </article>
-
-
+            
                 <article class="process-card reveal">
-
-                    <img
-                        src="img/proceso-02.jpg"
-                        alt="Construcción de estructura">
-
+                    <img src="assets/basea2.jpeg" alt="Diseño y construcción">
                     <div class="process-info">
-
                         <span>02</span>
-
-                        <h3>
-                            Construcción
-                        </h3>
-
-                        <p>
-                            Construcción de la estructura física.
-                        </p>
-
+                        <h3></h3>
+                        <p></p>
                     </div>
-
                 </article>
-
-
+            
                 <article class="process-card reveal">
-
-                    <img
-                        src="img/proceso-03.jpg"
-                        alt="Instalación electrónica">
-
+                    <img src="assets/Calendario 1.jpg" alt="Diseño y construcción">
                     <div class="process-info">
-
                         <span>03</span>
-
-                        <h3>
-                            Electrónica
-                        </h3>
-
-                        <p>
-                            Integración de sensores, actuadores
-                            y controlador.
-                        </p>
-
+                        <h3></h3>
+                        <p></p>
                     </div>
-
                 </article>
-
-
+            
                 <article class="process-card reveal">
-
-                    <img
-                        src="img/proceso-04.jpg"
-                        alt="Programación">
-
+                    <img src="assets/Calendario 5.jpg" alt="">
                     <div class="process-info">
-
                         <span>04</span>
-
-                        <h3>
-                            Programación
-                        </h3>
-
-                        <p>
-                            Desarrollo del sistema de control
-                            e interacción.
-                        </p>
-
+                        <h3></h3>
+                        <p></p>
                     </div>
-
                 </article>
-
-
+            
                 <article class="process-card reveal">
-
-                    <img
-                        src="img/proceso-05.jpg"
-                        alt="Pruebas">
-
+                    <img src="assets/Escudo 1.jpg" alt="">
                     <div class="process-info">
-
                         <span>05</span>
-
-                        <h3>
-                            Pruebas
-                        </h3>
-
-                        <p>
-                            Pruebas de movimiento, sensores
-                            e interacción.
-                        </p>
-
+                        <h3></h3>
+                        <p></p>
                     </div>
-
                 </article>
-
-
+            
                 <article class="process-card reveal">
-
-                    <img
-                        src="img/proceso-06.jpg"
-                        alt="Resultado final">
-
+                    <img src="assets/Escudo 4.jpg" alt="">
                     <div class="process-info">
-
                         <span>06</span>
-
-                        <h3>
-                            Resultado
-                        </h3>
-
-                        <p>
-                            Integración final del animatrónico
-                            y escenario.
-                        </p>
-
+                        <h3></h3>
+                        <p></p>
                     </div>
-
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Escudo 6.jpg" alt="">
+                    <div class="process-info">
+                        <span>07</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Escudo decorado 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>08</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Escudo forrado 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>09</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Escudo forrado 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>10</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <!-- 11 · ELECTRÓNICA Y PROGRAMACIÓN -->
+                <article class="process-card reveal" >
+                    <img src="assets/Escudo pintado 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>11</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Escudo pintado 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>12</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>13</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>14</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada pintada 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>15</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada pintada 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>16</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada pintada 4.jpg" alt="">
+                    <div class="process-info">
+                        <span>17</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada final_.jpg" alt="">
+                    <div class="process-info">
+                        <span>18</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Espada final 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>19</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Estructura 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>20</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <!-- 21 · PRUEBAS Y RESULTADO -->
+                <article class="process-card reveal">
+                    <img src="assets/Estructura 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>21</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Estructura interna_.jpg" alt="">
+                    <div class="process-info">
+                        <span>22</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Servos estructura_.jpg" alt="">
+                    <div class="process-info">
+                        <span>23</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Servos estructura 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>24</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Látex 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>25</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Látex 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>26</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Látex 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>27</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Látex 4.jpg" alt="">
+                    <div class="process-info">
+                        <span>28</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Látex 5.jpg" alt="">
+                    <div class="process-info">
+                        <span>29</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
+                <article class="process-card reveal">
+                    <img src="assets/Máscara 1.jpg" alt="Máscara">
+                    <div class="process-info">
+                        <span>30</span>
+                        <h3>Máscara</h3>
+                        <p>Modelo base para la máscara</p>
+                    </div>
                 </article>
 
+                <!-- Imagen 32 -->
+                <article class="process-card reveal" id="proceso-electronica">
+                    <img src="assets/Máscara 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>31</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 33 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara 5.jpg" alt="">
+                    <div class="process-info">
+                        <span>32</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 34 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara 6.jpg" alt="">
+                    <div class="process-info">
+                        <span>33</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 35 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara 7.jpg" alt="">
+                    <div class="process-info">
+                        <span>34</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 36 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara 8.jpg" alt="">
+                    <div class="process-info">
+                        <span>35</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 37 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara 10.jpg" alt="">
+                    <div class="process-info">
+                        <span>36</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 38 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara forrada_.jpg" alt="">
+                    <div class="process-info">
+                        <span>37</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 39 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara forrada 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>38</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 40 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara pintada_.jpg" alt="">
+                    <div class="process-info">
+                        <span>39</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 41 -->
+                <article class="process-card reveal">
+                    <img src="assets/Máscara pintada 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>40</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 42 -->
+                <article class="process-card reveal">
+                    <img src="assets/Molde 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>41</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 43 -->
+                <article class="process-card reveal">
+                    <img src="assets/Molde 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>42</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 44 -->
+                <article class="process-card reveal">
+                    <img src="assets/Molde 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>43</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 45 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 5.jpg" alt="">
+                    <div class="process-info">
+                        <span>44</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 46 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 7.jpg" alt="">
+                    <div class="process-info">
+                        <span>45</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 47 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 8.jpg" alt="">
+                    <div class="process-info">
+                        <span>46</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 48 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 11.jpg" alt="">
+                    <div class="process-info">
+                        <span>47</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 49 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 12.jpg" alt="">
+                    <div class="process-info">
+                        <span>48</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 50 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 9.jpg" alt="">
+                    <div class="process-info">
+                        <span>49</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 51 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 10.jpg" alt="">
+                    <div class="process-info">
+                        <span>50</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 52 -->
+                <article class="process-card reveal">
+                    <img src="assets/Moldes 6.jpg" alt="">
+                    <div class="process-info">
+                        <span>51</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 53 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares_.jpg" alt="">
+                    <div class="process-info">
+                        <span>52</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 54 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 1.jpg" alt="">
+                    <div class="process-info">
+                        <span>53</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 55 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 2(1).jpg" alt="">
+                    <div class="process-info">
+                        <span>54</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 56 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 2.jpg" alt="">
+                    <div class="process-info">
+                        <span>55</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 57 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 3(1).jpg" alt="">
+                    <div class="process-info">
+                        <span>56</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 58 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 3(2).jpg" alt="">
+                    <div class="process-info">
+                        <span>57</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 59 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 3.jpg" alt="">
+                    <div class="process-info">
+                        <span>58</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 60 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 4.jpg" alt="">
+                    <div class="process-info">
+                        <span>59</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 61 -->
+                <article class="process-card reveal" id="proceso-pruebas">
+                    <img src="assets/Pilares forrados 5.jpg" alt="">
+                    <div class="process-info">
+                        <span>60</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 62 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 7.jpg" alt="">
+                    <div class="process-info">
+                        <span>61</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 63 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 8.jpg" alt="">
+                    <div class="process-info">
+                        <span>62</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 64 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares forrados 9.jpg" alt="">
+                    <div class="process-info">
+                        <span>63</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 65 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares pintados 10.jpg" alt="">
+                    <div class="process-info">
+                        <span>64</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 66 -->
+                <article class="process-card reveal">
+                    <img src="assets/Pilares pintados 11.jpg" alt="">
+                    <div class="process-info">
+                        <span>65</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 67 -->
+                <article class="process-card reveal">
+                    <img src="assets/ollamagemma1.png" alt="">
+                    <div class="process-info">
+                        <span>66</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 68 -->
+                <article class="process-card reveal">
+                    <img src="assets/cons1.png" alt="">
+                    <div class="process-info">
+                        <span>67</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 69 -->
+                <article class="process-card reveal">
+                    <img src="assets/cons2.png" alt="">
+                    <div class="process-info">
+                        <span>68</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+
+                <!-- Imagen 70 -->
+                <article class="process-card reveal">
+                    <img src="assets/cons3.png" alt="">
+                    <div class="process-info">
+                        <span>69</span>
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </article>
+            
             </div>
-
+            
+    
+            <p class="process-hint">Desliza horizontalmente para las imagnes o presionalas para ampliar.</p>
+    
         </div>
-
     </section>
+    
 
-    -->
+    
 
 
     <!-- =====================================================
          ESCENARIO
     ====================================================== -->
 
-    <section class="scenario-section">
-
+    
+    <section id="escenario" class="scenario-section">
+    
         <div class="container scenario-grid">
-
-
+    
             <div class="reveal">
-
+    
                 <span class="eyebrow">
                     Ambientación
                 </span>
-
-
+    
                 <h2>
                     El escenario también cuenta la historia.
                 </h2>
-
-
+    
                 <p>
-
                     El espacio donde se presenta el animatrónico fue
                     diseñado para complementar la leyenda. Los
                     materiales, iluminación, distribución y elementos
                     visuales buscan crear una atmósfera coherente
                     con el personaje.
-
                 </p>
-
+    
             </div>
-
-
+    
             <div class="scenario-image reveal">
-
+    
                 <img
                     src="assets/escenario.jpeg"
                     alt="Escenario del proyecto">
-
+    
             </div>
-
+    
         </div>
-
+    
     </section>
+    
 
 </main>
 
@@ -2420,18 +3793,17 @@ Frase maya</p>
                 <h4>Integrantes:</h4>
 
                 <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li>Natanael Vazquez Lagunas</li>
+                    <li>Alma Nahomi Patiño Hernández</li>
+                    <li>Noel Sorcia Arellano</li>
+                    <li>Angel Avelino López</li>
+
                 </ul>
             </div>
 
 
             <div class="footer-group development">
-                <h4>Diseño y Desarrollo:</h4>
+                <h4></h4>
 
                 <p></p>
             </div>
@@ -2522,6 +3894,361 @@ Frase maya</p>
         revealObserver.observe(element);
 
     });
+
+
+    /*======================================================
+                    DESCRIPCION DEL ANIMATRONICO
+    ========================================================*/
+
+    const featureModal = document.getElementById("featureModal");
+const featureModalTitle = document.getElementById("featureModalTitle");
+const featureModalBody = document.getElementById("featureModalBody");
+const featureModalClose = document.getElementById("featureModalClose");
+const featuresGrid = document.querySelector("#animatronico .features-grid");
+
+let previousFeatureButton = null;
+
+function openFeatureModal(button) {
+    const card = button.closest(".feature-card");
+    const fullText = card.querySelector(".feature-full-text");
+    const title = card.querySelector("h3");
+
+    if (!fullText || !title) return;
+
+    previousFeatureButton = button;
+
+    featureModalTitle.textContent = title.textContent.trim();
+    featureModalBody.replaceChildren(
+        ...Array.from(fullText.children, element =>
+            element.cloneNode(true)
+        )
+    );
+
+    featureModal.hidden = false;
+    document.body.style.overflow = "hidden";
+    featureModalClose.focus();
+}
+
+function closeFeatureModal() {
+    featureModal.hidden = true;
+    document.body.style.overflow = "";
+
+    if (previousFeatureButton) {
+        previousFeatureButton.focus();
+    }
+}
+
+featuresGrid?.addEventListener("click", event => {
+    const button = event.target.closest(".feature-read-more");
+
+    if (button) {
+        openFeatureModal(button);
+    }
+});
+
+featureModalClose.addEventListener("click", closeFeatureModal);
+
+featureModal.addEventListener("click", event => {
+    if (event.target === featureModal) {
+        closeFeatureModal();
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !featureModal.hidden) {
+        closeFeatureModal();
+    }
+});
+
+
+
+
+const FEATURE_CHAR_LIMIT = 280;
+
+const modalTitle = document.getElementById("featureModalTitle");
+const modalBody = document.getElementById("featureModalBody");
+const modalClose = document.getElementById("featureModalClose");
+
+let previousButton = null;
+
+document.querySelectorAll(".feature-card").forEach(card => {
+    const description = card.querySelector(".feature-description");
+
+    if (!description) return;
+
+    const fullHTML = description.innerHTML;
+    const fullText = description.textContent.trim();
+
+    if (fullText.length <= FEATURE_CHAR_LIMIT) return;
+
+    // Crear una versión resumida sin modificar el texto original.
+    const summary = document.createElement("div");
+    summary.innerHTML = fullHTML;
+
+    let remaining = FEATURE_CHAR_LIMIT;
+    let finished = false;
+
+    function trimNode(node) {
+        if (finished) {
+            node.remove();
+            return;
+        }
+
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+
+            if (text.length > remaining) {
+                let cut = text.slice(0, remaining);
+
+                // Retroceder hasta el final de la última palabra completa.
+                const lastSpace = cut.lastIndexOf(" ");
+
+                if (lastSpace > 0) {
+                    cut = cut.slice(0, lastSpace);
+                }
+
+                node.textContent = cut.trimEnd();
+                remaining = 0;
+                finished = true;
+            } else {
+                remaining -= text.length;
+            }
+
+            return;
+        }
+
+        Array.from(node.childNodes).forEach(trimNode);
+    }
+
+    Array.from(summary.childNodes).forEach(trimNode);
+
+    description.innerHTML = summary.innerHTML.trimEnd() + "…";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "feature-read-more";
+    button.textContent = "Leer más";
+
+    button.addEventListener("click", () => {
+        previousButton = button;
+
+        modalTitle.textContent =
+            card.querySelector("h3")?.textContent.trim() || "";
+
+        // Mostrar todo el contenido original.
+        modalBody.innerHTML = fullHTML;
+
+        featureModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        modalClose.focus();
+    });
+
+    description.insertAdjacentElement("afterend", button);
+});
+
+function closeFeatureModal() {
+    featureModal.hidden = true;
+    document.body.style.overflow = "";
+
+    if (previousButton) previousButton.focus();
+}
+
+modalClose.addEventListener("click", closeFeatureModal);
+
+featureModal.addEventListener("click", event => {
+    if (event.target === featureModal) {
+        closeFeatureModal();
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !featureModal.hidden) {
+        closeFeatureModal();
+    }
+});
+
+
+
+
+    /*======================================================
+                    GALERÍA
+    ========================================================*/
+
+    
+
+const gallery = document.getElementById("processGallery");
+const tabs = document.querySelectorAll(".process-tab");
+
+if (gallery && tabs.length) {
+    const cards = gallery.querySelectorAll(".process-card");
+
+    function activateTab(tab) {
+        tabs.forEach((item) => {
+            const active = item === tab;
+
+            item.classList.toggle("active", active);
+            item.setAttribute("aria-pressed", String(active));
+        });
+    }
+
+    // Al pulsar una categoría, desplaza la galería.
+    tabs.forEach((tab) => {
+        tab.setAttribute("aria-pressed", "false");
+
+        tab.addEventListener("click", () => {
+            const target = document.getElementById(tab.dataset.target);
+
+            if (!target) return;
+
+            gallery.scrollTo({
+                left: target.offsetLeft - cards[0].offsetLeft,
+                behavior: "smooth"
+            });
+
+            activateTab(tab);
+        });
+    });
+
+    // Actualiza la categoría según la tarjeta más visible.
+    let scrollFrame;
+
+    gallery.addEventListener("scroll", () => {
+        cancelAnimationFrame(scrollFrame);
+
+        scrollFrame = requestAnimationFrame(() => {
+            const galleryRect = gallery.getBoundingClientRect();
+            const galleryCenter = galleryRect.left + galleryRect.width / 2;
+
+            let closestCard = null;
+            let closestDistance = Infinity;
+
+            cards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+
+                if (rect.right <= galleryRect.left ||
+                    rect.left >= galleryRect.right) {
+                    return;
+                }
+
+                const center = rect.left + rect.width / 2;
+                const distance = Math.abs(center - galleryCenter);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestCard = card;
+                }
+            });
+
+            if (!closestCard) return;
+
+            const index = Array.from(cards).indexOf(closestCard);
+
+            // Cada botón representa dos tarjetas.
+            // Cada botón representa diez tarjetas.
+            const tabIndex = Math.min(
+                Math.floor(index / 30),
+                tabs.length - 1
+            );
+
+            activateTab(tabs[tabIndex]);
+        });
+    }, { passive: true });
+}
+
+
+
+/* =====================================================
+       AMPLIACIÓN DE IMAGEN
+    ====================================================== */
+
+    // Vista previa y navegación de imágenes de la galería
+(() => {
+    const gallery = document.getElementById("processGallery");
+    const lightbox = document.getElementById("imageLightbox");
+    const previewImage = document.getElementById("lightboxImage");
+    const caption = document.getElementById("lightboxCaption");
+    const counter = document.getElementById("lightboxCounter");
+    const closeButton = document.getElementById("lightboxClose");
+    const prevButton = document.getElementById("lightboxPrev");
+    const nextButton = document.getElementById("lightboxNext");
+
+    if (!gallery || !lightbox) return;
+
+    const images = Array.from(
+        gallery.querySelectorAll(".process-card img")
+    );
+
+    let currentIndex = 0;
+    let previousFocus = null;
+
+    function showImage(index) {
+        currentIndex = (index + images.length) % images.length;
+
+        const image = images[currentIndex];
+        const card = image.closest(".process-card");
+        const title = card?.querySelector("h3")?.textContent.trim() || "";
+        const description =
+            card?.querySelector("p")?.textContent.trim() || "";
+
+        previewImage.src = image.currentSrc || image.src;
+        previewImage.alt = image.alt || title || "Imagen del proceso";
+
+        caption.textContent = title || description;
+        counter.textContent = `${currentIndex + 1} / ${images.length}`;
+
+        prevButton.disabled = images.length < 2;
+        nextButton.disabled = images.length < 2;
+    }
+
+    function openLightbox(index) {
+        previousFocus = document.activeElement;
+        showImage(index);
+
+        lightbox.classList.add("active");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        closeButton.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+        lightbox.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+
+        previewImage.src = "";
+
+        if (previousFocus && typeof previousFocus.focus === "function") {
+            previousFocus.focus();
+        }
+    }
+
+    images.forEach((image, index) => {
+        image.addEventListener("click", () => openLightbox(index));
+    });
+
+    prevButton.addEventListener("click", () => {
+        showImage(currentIndex - 1);
+    });
+
+    nextButton.addEventListener("click", () => {
+        showImage(currentIndex + 1);
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (!lightbox.classList.contains("active")) return;
+
+        if (event.key === "Escape") closeLightbox();
+        if (event.key === "ArrowLeft") showImage(currentIndex - 1);
+        if (event.key === "ArrowRight") showImage(currentIndex + 1);
+    });
+})();
 
 
     /* =====================================================
